@@ -1,10 +1,10 @@
-{-# LANGUAGE BangPatterns #-}
-{-# LANGUAGE CPP #-}
-{-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE BangPatterns          #-}
+{-# LANGUAGE CPP                   #-}
+{-# LANGUAGE FlexibleContexts      #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE RankNTypes #-}
-{-# LANGUAGE ScopedTypeVariables #-}
-{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE RankNTypes            #-}
+{-# LANGUAGE ScopedTypeVariables   #-}
+{-# LANGUAGE TypeFamilies          #-}
 -- |
 -- Module      : Data.Vector.Generic
 -- Copyright   : (c) Roman Leshchinskiy 2008-2010
@@ -180,37 +180,49 @@ module Data.Vector.Generic (
 
 import           Data.Vector.Generic.Base
 
-import qualified Data.Vector.Generic.Mutable as M
+import qualified Data.Vector.Generic.Mutable       as M
 
-import qualified Data.Vector.Generic.New as New
-import           Data.Vector.Generic.New ( New )
+import           Data.Vector.Generic.New           (New)
+import qualified Data.Vector.Generic.New           as New
 
-import qualified Data.Vector.Fusion.Bundle as Bundle
-import           Data.Vector.Fusion.Bundle ( Bundle, MBundle, lift, inplace )
+import           Data.Vector.Fusion.Bundle         (Bundle, MBundle, inplace,
+                                                    lift)
+import qualified Data.Vector.Fusion.Bundle         as Bundle
 import qualified Data.Vector.Fusion.Bundle.Monadic as MBundle
-import           Data.Vector.Fusion.Stream.Monadic ( Stream )
-import qualified Data.Vector.Fusion.Stream.Monadic as S
 import           Data.Vector.Fusion.Bundle.Size
+import           Data.Vector.Fusion.Stream.Monadic (Stream)
+import qualified Data.Vector.Fusion.Stream.Monadic as S
 import           Data.Vector.Fusion.Util
 import           Data.Vector.Internal.Check
 
-import Control.Monad.ST ( ST, runST )
-import Control.Monad.Primitive
-import Prelude
-  ( Eq, Ord, Num, Enum, Monoid, Monad, Read, Show, Bool, Ordering(..), Int, Maybe(..), Either, IO, ShowS, ReadS, String
-  , compare, mempty, mappend, return, fmap, otherwise, id, flip, seq, error, undefined, uncurry, shows, fst, snd, min, max, not
-  , (>>=), (+), (-), (*), (<), (==), (.), ($), (=<<), (>>), (<$>) )
+import           Control.Monad.Primitive
+import           Control.Monad.ST                  (ST, runST)
+import           Prelude                           (Bool, Either, Enum, Eq, IO,
+                                                    Int, Maybe (..), Monad,
+                                                    Monoid, Num, Ord,
+                                                    Ordering (..), Read, ReadS,
+                                                    Show, ShowS, String,
+                                                    compare, error, flip, fmap,
+                                                    fst, id, mappend, max,
+                                                    mempty, min, not, otherwise,
+                                                    return, seq, shows, snd,
+                                                    uncurry, undefined, ($),
+                                                    (*), (+), (-), (.), (<$>),
+                                                    (<), (=<<), (==), (>>),
+                                                    (>>=))
 
-import qualified Text.Read as Read
-import qualified Data.List.NonEmpty as NonEmpty
+import qualified Data.List.NonEmpty                as NonEmpty
+import qualified Text.Read                         as Read
 
-import Data.Typeable ( Typeable, gcast1 )
+import           Data.Typeable                     (Typeable, gcast1)
 
 #include "vector.h"
 
-import Data.Data ( Data, DataType, Constr, Fixity(Prefix),
-                   mkDataType, mkConstr, constrIndex, mkNoRepType )
-import qualified Data.Traversable as T (Traversable(mapM))
+import           Data.Data                         (Constr, Data, DataType,
+                                                    Fixity (Prefix),
+                                                    constrIndex, mkConstr,
+                                                    mkDataType, mkNoRepType)
+import qualified Data.Traversable                  as T (Traversable (mapM))
 
 -- Length information
 -- ------------------
@@ -1627,7 +1639,7 @@ groupBy f v =
       tl = unsafeTail v
    in case findIndex (not . f h) tl of
       Nothing -> [v]
-      Just n -> unsafeTake (n + 1) v : groupBy f (unsafeDrop (n + 1) v)
+      Just n  -> unsafeTake (n + 1) v : groupBy f (unsafeDrop (n + 1) v)
 
 -- | /O(n)/ Split a vector into a list of slices.
 --

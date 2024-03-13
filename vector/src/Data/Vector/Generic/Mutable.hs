@@ -1,9 +1,9 @@
-{-# LANGUAGE BangPatterns #-}
-{-# LANGUAGE CPP #-}
-{-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE BangPatterns          #-}
+{-# LANGUAGE CPP                   #-}
+{-# LANGUAGE FlexibleContexts      #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE ScopedTypeVariables #-}
-{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE ScopedTypeVariables   #-}
+{-# LANGUAGE TypeFamilies          #-}
 -- |
 -- Module      : Data.Vector.Generic.Mutable
 -- Copyright   : (c) Roman Leshchinskiy 2008-2010
@@ -76,24 +76,29 @@ module Data.Vector.Generic.Mutable (
   PrimMonad, PrimState, RealWorld
 ) where
 
+import qualified Data.Vector.Generic.Base          as V
 import           Data.Vector.Generic.Mutable.Base
-import qualified Data.Vector.Generic.Base as V
 
-import qualified Data.Vector.Fusion.Bundle      as Bundle
-import           Data.Vector.Fusion.Bundle      ( Bundle, MBundle, Chunk(..) )
+import           Data.Vector.Fusion.Bundle         (Bundle, Chunk (..), MBundle)
+import qualified Data.Vector.Fusion.Bundle         as Bundle
 import qualified Data.Vector.Fusion.Bundle.Monadic as MBundle
-import           Data.Vector.Fusion.Stream.Monadic ( Stream )
-import qualified Data.Vector.Fusion.Stream.Monadic as Stream
 import           Data.Vector.Fusion.Bundle.Size
-import           Data.Vector.Fusion.Util        ( delay_inline )
+import           Data.Vector.Fusion.Stream.Monadic (Stream)
+import qualified Data.Vector.Fusion.Stream.Monadic as Stream
+import           Data.Vector.Fusion.Util           (delay_inline)
 import           Data.Vector.Internal.Check
 
-import Control.Monad.Primitive ( PrimMonad(..), RealWorld, stToPrim )
+import           Control.Monad.Primitive           (PrimMonad (..), RealWorld,
+                                                    stToPrim)
 
-import Prelude
-  ( Ord, Monad, Bool(..), Int, Maybe(..), Either(..)
-  , return, otherwise, flip, const, seq, min, max, not, pure
-  , (>>=), (+), (-), (<), (<=), (>=), (==), (/=), (.), ($), (=<<), (>>), (<$>) )
+import           Prelude                           (Bool (..), Either (..), Int,
+                                                    Maybe (..), Monad, Ord,
+                                                    const, flip, max, min, not,
+                                                    otherwise, pure, return,
+                                                    seq, ($), (+), (-), (.),
+                                                    (/=), (<$>), (<), (<=),
+                                                    (=<<), (==), (>=), (>>),
+                                                    (>>=))
 
 #include "vector.h"
 
